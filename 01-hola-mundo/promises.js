@@ -48,12 +48,14 @@ const getSalario = (id) => {
     })
 }
 
-const id = 3;
+const id = 10;
+
+let nombre;
 
 getEmpleado(id)
-  .then((empleado) => console.log(empleado))
-  .catch( err => console.log(err));
-
-  getSalario(id)
-  .then( salario => console.log(salario))
-  .catch(err => console.log(err));
+    .then(empleado=> {
+        nombre = empleado;
+        return getSalario(id) //Se necesita colocar esto en un return para poder encadenar dos promesas
+    })
+    .then(salario => console.log(`El salario de ${nombre} es ${salario}`))
+    .catch(err => console.log(err))
