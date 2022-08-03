@@ -6,13 +6,18 @@ const argv = require("yargs")
                 demandOption: true, //obliga a tener que pasar el parametro
 
               })
+              .option('l', {
+                alias: 'list',
+                type: 'boolean',
+                demandOption: true,
+                default: false,
+              })
               .check((argv, options) =>{
                   if(isNaN(argv.b)){
                     throw 'La base tiene que ser un número'
                   }
                   return true;
               })
-              .option
               .argv;
 
 console.clear();
@@ -26,6 +31,6 @@ console.log(argv.base); //Puedo acceder a las propiedades del yargs con el nombr
 
 // const base = 5;
 
-// crearArchivo(base)
-//   .then(nombreArchivo => console.log(nombreArchivo, 'creado'))
-//   .catch(err => console.log(err))
+crearArchivo(argv.base, argv.list)
+  .then(nombreArchivo => console.log(nombreArchivo, 'creado'))
+  .catch(err => console.log(err))
