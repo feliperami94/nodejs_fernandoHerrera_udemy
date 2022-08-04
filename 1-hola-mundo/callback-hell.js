@@ -51,7 +51,8 @@ getEmpleado(id, (err, empleado) => {
     return console.log(err);
   }
   console.log(`Empleado existe!`);
-  getSalario(id, (err, salario) => { //Example of a simple callback hell 
+  getSalario(id, (err, salario) => {
+    //Example of a simple callback hell
     if (err) {
       console.log(`Error!`);
       return console.log(err);
