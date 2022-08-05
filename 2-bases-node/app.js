@@ -12,6 +12,6 @@ console.log(argv.base); //Puedo acceder a las propiedades del yargs con el nombr
 
 // const base = 5;
 
-crearArchivo(argv.base, argv.list)
+crearArchivo(argv.base, argv.list, argv.hasta)
   .then(nombreArchivo => console.log(nombreArchivo, 'creado'))
   .catch(err => console.log(err))
