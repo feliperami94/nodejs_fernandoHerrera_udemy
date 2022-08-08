@@ -1,3 +1,4 @@
+const { saveDB } = require("../helpers/dbActions");
 const Tarea = require("./tarea");
 
 
@@ -19,9 +20,17 @@ class Tareas {
         this._listado = {};
     }
 
+    loadTasksFromArray(tasks = []){
+        
+        tasks.forEach(task => {
+            this._listado[task.id] = task;
+        });
+    }
+
     crearTarea(desc = '') {
         const tarea = new Tarea(desc);
         this._listado[tarea.id] = tarea;
+        //Here should be saving in the DB
     }
 
 
