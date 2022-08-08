@@ -2,7 +2,8 @@ require('colors');
 const { inquirerMenu,
     pausa,
     readInput,
-    listDeleteTask } = require('./helpers/inquirer.js');
+    listDeleteTask,
+    confirm } = require('./helpers/inquirer.js');
 const Tarea = require('./models/tarea.js');
 const Tareas = require('./models/tareas.js');
 const { saveDB, readDB } = require('./helpers/dbActions')
@@ -42,6 +43,7 @@ const main = async () => {
                 break;
             case '6':
                 const id = await listDeleteTask(tasks.listArray);
+                const userConfirmation = confirm('Are you sure? ')
                 console.log({id});
                 break;
             default:
