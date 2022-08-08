@@ -33,7 +33,44 @@ class Tareas {
         //Here should be saving in the DB
     }
 
+    listTasks(){
+        console.log('\n');
+        let i = 1;
+        let isCompleted = "";
+        for (const key in this._listado) {
+            if(this._listado[key].completedIn === null){
+                isCompleted = "Pending".red;
+            } else{
+                isCompleted = "Completed".green;
+            }
 
+            console.log(`${i}.`.green, `${this._listado[key].description} :: `, isCompleted)
+            i++
+        }
+    }
+
+    listCompletedPending(completed = true){
+        console.log('\n');
+        let index = 1;
+        Object.keys(this._listado).forEach((key) =>
+            {   
+                let desc;
+                let i;
+                if(this._listado[key].completedIn !== null && completed === true){
+                    i = `${index}.`.green;
+                    desc = this._listado[key].description + " :: "+"Completed".green;
+                } else if (this._listado[key].completedIn === null && completed === false) {
+                    i = `${index}.`.red;
+                    desc = this._listado[key].description + " :: "+"Pending".red;
+                }
+                if (i && desc){
+                    console.log(i, desc);
+                    index++
+                }
+            }
+        )
+
+    }
 }
 
 module.exports = Tareas;

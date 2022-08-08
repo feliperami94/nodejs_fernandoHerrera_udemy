@@ -30,14 +30,17 @@ const main = async () => {
                 const desc = await readInput('Description: ');
                 tasks.crearTarea( desc );
                 break;
-                case '2':
-                    if(tasksDB){
-                        console.log(tasks.listArray);
-                    }
-                    break;
-                    default:
-                        break;
-                    }
+            case '2':
+                tasks.listTasks();
+                break;
+            case '3':
+                tasks.listCompletedPending(true);
+                break;
+            case '4':
+                tasks.listCompletedPending(false);
+            default:
+                break;
+            }
                     
                     saveDB(tasks.listArray);
                     
