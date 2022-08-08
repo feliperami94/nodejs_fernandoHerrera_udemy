@@ -93,6 +93,11 @@ const listDeleteTask = async (tasks = []) => {
         }
     });
 
+    choices.unshift({
+        value: '0',
+        name: '0.'.green + 'Cancel'
+    })
+
     const questions = [
         {
             type: 'list',
@@ -103,11 +108,6 @@ const listDeleteTask = async (tasks = []) => {
     ]
     const {id} = await inquirer.prompt(questions);
     return id
-
-    // {
-    //     value: 'tarea.id',
-    //     name: `1. `.green + `Create task`
-    // }
 
 }
 
@@ -120,6 +120,7 @@ const confirm = async (message) => {
         }
     ]
     const {ok} = await inquirer.prompt(question);
+    console.log(ok)
     return ok
 
 }

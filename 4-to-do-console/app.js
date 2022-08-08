@@ -43,8 +43,13 @@ const main = async () => {
                 break;
             case '6':
                 const id = await listDeleteTask(tasks.listArray);
-                const userConfirmation = confirm('Are you sure? ')
-                console.log({id});
+                if (id !== '0'){
+                    const userConfirmation = await confirm('Are you sure? ');
+                    if (userConfirmation){
+                        tasks.deleteTask(id);
+                        console.log('Task deleted');
+                    }
+                }
                 break;
             default:
                 break;
