@@ -1,10 +1,11 @@
 require('colors');
-const { inquirerMenu, 
-    pausa, 
-    readInput} = require('./helpers/inquirer.js');
+const { inquirerMenu,
+    pausa,
+    readInput,
+    listDeleteTask } = require('./helpers/inquirer.js');
 const Tarea = require('./models/tarea.js');
 const Tareas = require('./models/tareas.js');
-const { saveDB, readDB} = require('./helpers/dbActions')
+const { saveDB, readDB } = require('./helpers/dbActions')
 // const { mostrarMenu, pausa } = require('./helpers/mensajes'); That´s how I would do it manually
 
 
@@ -16,19 +17,19 @@ const main = async () => {
     const tasks = new Tareas();
     const tasksDB = readDB();
 
-    if(tasksDB){
+    if (tasksDB) {
         // console.log('tasks are:', tasksDB)
         tasks.loadTasksFromArray(tasksDB);
 
     }
-                
+
     do {
         opt = await inquirerMenu();
-        
+
         switch (opt) {
             case '1':
                 const desc = await readInput('Description: ');
-                tasks.crearTarea( desc );
+                tasks.crearTarea(desc);
                 break;
             case '2':
                 tasks.listTasks();
@@ -38,14 +39,19 @@ const main = async () => {
                 break;
             case '4':
                 tasks.listCompletedPending(false);
+                break;
+            case '6':
+                const id = await listDeleteTask(tasks.listArray);
+                console.log({id});
+                break;
             default:
                 break;
-            }
-                    
-                    saveDB(tasks.listArray);
-                    
-                    
-                    await pausa();
+        }
+
+        saveDB(tasks.listArray);
+
+
+        await pausa();
     } while (opt !== '0');
 
 
