@@ -78,6 +78,23 @@ class Tareas {
         )
 
     }
+
+    toggleCompleted(ids = []){
+
+        ids.forEach(id => {
+            const task = this._listado[id];
+            if (!task.completedIn) {
+                task.completedIn = new Date().toISOString()
+            }
+        })
+
+        this.listArray.forEach(task => {
+            if(!ids.includes(task.id)){
+                this._listado[task.id].completedIn = null
+            }
+        })
+
+    }
 }
 
 module.exports = Tareas;

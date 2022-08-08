@@ -3,7 +3,8 @@ const { inquirerMenu,
     pausa,
     readInput,
     listDeleteTask,
-    confirm } = require('./helpers/inquirer.js');
+    confirm,
+    showChecklist } = require('./helpers/inquirer.js');
 const Tarea = require('./models/tarea.js');
 const Tareas = require('./models/tareas.js');
 const { saveDB, readDB } = require('./helpers/dbActions')
@@ -41,11 +42,15 @@ const main = async () => {
             case '4':
                 tasks.listCompletedPending(false);
                 break;
+            case '5': //Completed | Pending
+                const ids = await showChecklist(tasks.listArray);
+                tasks.toggleCompleted(ids);
+                break;
             case '6':
                 const id = await listDeleteTask(tasks.listArray);
-                if (id !== '0'){
+                if (id !== '0') {
                     const userConfirmation = await confirm('Are you sure? ');
-                    if (userConfirmation){
+                    if (userConfirmation) {
                         tasks.deleteTask(id);
                         console.log('Task deleted');
                     }
