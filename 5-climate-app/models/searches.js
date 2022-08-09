@@ -9,7 +9,11 @@ class Searches {
 
     constructor() {
         //TODO Leer DB
-        this.readDB();
+        this.history = [...this.readDB()];
+    }
+
+    get historyCapitalized(){
+        return this.history.cap;
     }
 
     get paramsMapBox() {
@@ -78,7 +82,7 @@ class Searches {
 
     addHistory(place = '') {
         //prevent duplicate
-        if (this.history.includes(place.toLocaleLowerCase())) return;
+        if (this.history.includes(place.toLocaleLowerCase())) {return;}
         this.history.unshift(place);
         this.saveDB();
     }
@@ -91,10 +95,13 @@ class Searches {
     }
 
     readDB() {
-        //exists?
         //const info.... readFileSync... path... {encoding: 'utf-8'}
-        const data = JSON.parse(info);
-        this.history = ...data.history
+        if (fs.existsSync(this.dbPath)){
+            const info = fs.readFileSync(this.dbPath, {encoding: 'utf-8'});
+            const data = JSON.parse(info);
+            
+            return data.history;
+        }
 
     }
 
