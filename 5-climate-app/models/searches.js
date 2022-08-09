@@ -1,4 +1,5 @@
 const axios = require('axios');
+require('dotenv').config();
 
 class Searches {
     history = ['Tegucigalpa', 'Madrid', 'San José'];
@@ -11,7 +12,8 @@ class Searches {
         return {
             'limit':5,
             'language': 'en',
-            'access_token':`pk.eyJ1IjoiZmVsaXBlLXJhbWlyZXoiLCJhIjoiY2w2bWUxNzZhMDMwNzNqbXAwaWRvdGc1MiJ9.PzX3QhAcGLGd-sYrdvpFvA`
+            'access_token': process.env.MAPBOX_KEY
+            // `pk.eyJ1IjoiZmVsaXBlLXJhbWlyZXoiLCJhIjoiY2w2bWUxNzZhMDMwNzNqbXAwaWRvdGc1MiJ9.PzX3QhAcGLGd-sYrdvpFvA`
             }
     }
 

@@ -2,6 +2,7 @@ const { readInput, inquirerMenu, pausa } = require("./helpers/inquirer")
 const colors = require('colors');
 const { Searches } = require("./models/searches");
 
+// console.log(process.env) //Shows environment variables
 
 const main = async () => {
     
