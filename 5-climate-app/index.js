@@ -17,6 +17,7 @@ const main = async () => {
 
             case 1:
                 const placeSearch = await readInput('City: ');
+                await searches.city(placeSearch);
                 console.log(placeSearch);
                 console.log('\nInfo of the city\n'.green)
                 console.log('City: ',);
