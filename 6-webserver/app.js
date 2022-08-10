@@ -1,18 +1,16 @@
-const http = require('http');
+const express = require('express')
+const app = express()
 
-http.createServer( (req, res) => {
-    res.setHeader('Content-Disposition', 'attachment; filename=list.txt')
-    console.log(req)//Shows all the info about a http request
-    res.writeHead(200, {'Content-type': 'text/plain'}); //Writes a header for the response
-    // res.writeHead(200, {'Content-type': 'application/json'}) //Writes a header to send json info
-    
-    const person = {
-        id: 1,
-        name: 'Felipe'
-    }
-    res.write(JSON.stringify(person));
-    res.end();
+app.get('/', function (req, res) {
+  res.send('Home Page')
 })
-.listen( 8080 )
 
-console.log('listening port: ', 8080);
+app.get('/hello-world', function (req, res) {
+    res.send('Hello World with its route')
+  })
+
+app.get('*', function (req, res) { //* Means all other route
+    res.send('404 | Page not found')
+  })
+
+app.listen(8080)
