@@ -1,7 +1,10 @@
+require('dotenv').config();
 const express = require('express')
 var hbs = require('hbs');
 const app = express()
-const port = 8080;
+const port = process.env.PORT;
+
+console.log(port)
 
 
 
@@ -11,22 +14,23 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(express.static('public'));
 
+const params = {
+    name: 'Felipe Ramirez',
+    title: 'Node course'
+}
+
 app.get('/', (req, res) => {
-    res.render('home',
-    {
-        name: 'Fernando Herrera',
-        title: 'Node course'
-    });
+    res.render('home', params);
 
 })
 
 app.get('/generic', (req, res) => {
-    res.sendFile(__dirname + '/public/generic.html');
+    res.render('generic', params);
 
 })
 
 app.get('/elements', (req, res) => {
-    res.sendFile(__dirname + '/public/elements.html');
+    res.render('elements', params);
 
 })
 
