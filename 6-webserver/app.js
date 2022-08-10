@@ -1,16 +1,23 @@
 const express = require('express')
 const app = express()
+const port = 8080;
 
-app.get('/', function (req, res) {
-  res.send('Home Page')
+//Middleware to serve static content
+app.use(express.static('public'));
+// app.get('/', (req, res) => { //This gets unused because of the previous middleware
+//     res.send('Home Page')
+// })
+
+app.get('/hello-world', (req, res) => {
+    res.send('Hello World with its route')
 })
 
-app.get('/hello-world', function (req, res) {
-    res.send('Hello World with its route')
-  })
+app.get('*', (req, res) => { //* Means all other route
+    res.sendFile(__dirname + '/public/404.html');
+})
 
-app.get('*', function (req, res) { //* Means all other route
-    res.send('404 | Page not found')
-  })
 
-app.listen(8080)
+
+app.listen(port, ()=>{
+    console.log(`Listening to localhost: ${port}`);
+})
