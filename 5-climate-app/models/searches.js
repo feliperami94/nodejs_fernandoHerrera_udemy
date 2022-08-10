@@ -13,7 +13,15 @@ class Searches {
     }
 
     get historyCapitalized(){
-        return this.history.cap;
+        return this.history.map(placeName => {
+            let splitArrayPlace = placeName.split(" ");
+            
+            splitArrayPlace  =  splitArrayPlace.map(word => word[0].toUpperCase() + word.substring(1));
+            return splitArrayPlace.join(" ")
+
+
+        })
+        
     }
 
     get paramsMapBox() {
@@ -82,8 +90,8 @@ class Searches {
 
     addHistory(place = '') {
         //prevent duplicate
-        if (this.history.includes(place.toLocaleLowerCase())) {return;}
-        this.history.unshift(place);
+        if (this.history.includes(place.toLowerCase())) {return;}
+        this.history.unshift(place.toLowerCase());
         this.saveDB();
     }
 
@@ -102,6 +110,7 @@ class Searches {
             
             return data.history;
         }
+        return [];
 
     }
 
