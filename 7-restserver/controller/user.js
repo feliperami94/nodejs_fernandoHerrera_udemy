@@ -1,7 +1,8 @@
- const {response, request} = require('express'); //Imports methods for the response 
- 
- const usersGet = (req = request, res = response) => {
-    const {a, b, c, name} = req.query;
+const { response, request } = require('express'); //Imports methods for the response 
+const User = require('../models/user') //The capital U is a standard for using to create instances
+
+const usersGet = (req = request, res = response) => {
+    const { a, b, c, name } = req.query;
     res.status(200).json({
         msg: 'get API - Controller',
         a,
@@ -11,14 +12,18 @@
     })
 }
 
-const usersPost = (req = request, res = response) => {
+const usersPost = async (req = request, res = response) => {
 
-        const { name, age } = req.body;
+    const body = req.body;
+    const user = new User(body);
+
+    await user.save();
+
     res.status(201).json({
         msg: 'post API - Controller',
-        name,
-        age
+        user
     })
+
 }
 
 const usersPut = (req, res) => {
@@ -31,7 +36,7 @@ const usersPut = (req, res) => {
 }
 
 const usersDelete = (req, res) => {
-    res.status(200).json({msg: 'delete API - Controller'})
+    res.status(200).json({ msg: 'delete API - Controller' })
 }
 
 
