@@ -34,8 +34,8 @@ const UserSchema = Schema({
     
 })
 
-UserSchema.methods.toJSON = function() { //This has to be a normal function, it allows "this"
-    const { __v, password, ...user } = this.toObject();
+UserSchema.methods.toJSON = function() { //This has to be a normal function to allow "this.toObject()"
+    const { __v, password, ...user } = this.toObject(); // This removes the password and __v from the response
     return user;
 }
 

@@ -22,12 +22,7 @@ const usersPost = async (req = request, res = response) => {
     const user = new User({name, email, password, role});
 
     //Verify if email exists
-    const existsEmail = await User.findOne({email});
-    if (existsEmail) {
-        return res.status(400).json({
-            msg: 'The email has been already taken'
-        })
-    }
+
 
     //Encrypt password
     const salt = bcryptjs.genSaltSync();//Number of cycles of the encrypt
