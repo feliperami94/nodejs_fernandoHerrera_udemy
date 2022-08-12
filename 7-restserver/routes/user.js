@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { isRoleValid, emailUniqueValidation } = require('../helpers/db-validators');
+const { isRoleValid, emailUniqueValidation, userExistsById } = require('../helpers/db-validators');
 const { validateFields } = require('./validate-fields');
 const { usersGet, 
         usersPost,
@@ -12,7 +12,12 @@ const router = Router();
 
 router.get('/', usersGet) //Not executing the function but the reference. When calling the router, the two arguments (req, res) will be passed to the function
 
-router.put('/:id', usersPut)
+router.put('/:id', [
+       check('id', 'Not a valid ID').isMongoId(),
+       check('id').custom(userExistsById),
+       validateFields
+    ],
+     usersPut)
 
 router.post('/', [ // The second argument is the middleware, or an array of middlewares. The result is obtained in the controller.
     check('email', 'The email is not valid').isEmail(), 

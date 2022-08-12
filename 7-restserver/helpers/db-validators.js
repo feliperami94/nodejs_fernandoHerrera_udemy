@@ -16,7 +16,15 @@ const emailUniqueValidation = async ( email = '') => {
     }
 }
 
+const userExistsById = async ( id ) => {
+    const userExists = await User.findById(id);
+    if (!userExists) {
+        throw new Error(`The user of the id ${id} doesn't exists`)
+    }
+}
+
 module.exports = {
     isRoleValid,
-    emailUniqueValidation
+    emailUniqueValidation,
+    userExistsById
 }
