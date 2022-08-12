@@ -1,5 +1,6 @@
 const { response, request } = require('express'); //Imports methods for the response 
 const User = require('../models/user') //The capital U is a standard for using to create instances
+const bcryptjs = require('bcryptjs');
 
 const usersGet = (req = request, res = response) => {
     const { a, b, c, name } = req.query;
@@ -14,16 +15,22 @@ const usersGet = (req = request, res = response) => {
 
 const usersPost = async (req = request, res = response) => {
 
-    const body = req.body;
-    const user = new User(body);
+    const {name, email, password, role} = req.body;
+    const user = new User({name, email, password, role});
 
+    //Verify if email exists
+
+    //Encrypt password
+    const salt = bcryptjs.genSaltSync();//Number of cycles of the encrypt
+    user.password = bcryptjs.hashSync( password, salt);
+
+    //Save in DB
     await user.save();
 
     res.status(201).json({
         msg: 'post API - Controller',
         user
     })
-
 }
 
 const usersPut = (req, res) => {
