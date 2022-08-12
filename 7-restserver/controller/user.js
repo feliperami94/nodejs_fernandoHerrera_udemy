@@ -17,7 +17,7 @@ const usersPost = async (req = request, res = response) => {
 
 
 
-
+    //User creation
     const {name, email, password, role} = req.body;
     const user = new User({name, email, password, role});
 
