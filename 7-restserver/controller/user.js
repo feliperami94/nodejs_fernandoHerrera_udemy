@@ -1,15 +1,15 @@
 const { response, request } = require('express'); //Imports methods for the response 
 const bcryptjs = require('bcryptjs');
-const User = require('../models/user') //The capital U is a standard for using to create instances
+const User = require('../models/user'); //The capital U is a standard for using to create instances
+const user = require('../models/user');
 
-const usersGet = (req = request, res = response) => {
-    const { a, b, c, name } = req.query;
-    res.status(200).json({
-        msg: 'get API - Controller',
-        a,
-        b,
-        c,
-        name
+const usersGet = async (req = request, res = response) => {
+    const { limit = 5, from=0 } = req.query; //It will destructure the "limit" query parameter
+    const users = await User.find()
+        .skip(Number(from))
+        .limit(Number(limit));
+    res.json({
+        users
     })
 }
 
@@ -51,10 +51,7 @@ const usersPut = async (req, res) => {
     }
     const user = await User.findByIdAndUpdate(id, rest);
 
-    res.status(200).json({
-        msg: 'put API - Controller',
-        user
-    })
+    res.status(200).json(user)
 }
 
 const usersDelete = (req, res) => {
