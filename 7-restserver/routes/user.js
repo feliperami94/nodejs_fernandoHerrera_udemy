@@ -29,7 +29,11 @@ router.post('/', [ // The second argument is the middleware, or an array of midd
     validateFields //Custom middleware
 ], usersPost) 
 
-router.delete('/', usersDelete)
+router.delete('/:id',[
+    check('id', 'Not a valid ID').isMongoId(),
+    check('id').custom(userExistsById),
+    validateFields
+], usersDelete)
 
 
 
