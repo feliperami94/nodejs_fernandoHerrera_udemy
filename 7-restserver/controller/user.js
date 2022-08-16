@@ -5,10 +5,16 @@ const user = require('../models/user');
 
 const usersGet = async (req = request, res = response) => {
     const { limit = 5, from=0 } = req.query; //It will destructure the "limit" query parameter
-    const users = await User.find()
-        .skip(Number(from))
-        .limit(Number(limit));
+    const query = {state: true}
+    
+    const [totalRecords, users] = await Promise.all([ // Executes the promises simultaneously. This because one promise doesn't depent on the other's result.
+        User.countDocuments(query),
+        User.find(query)
+            .skip(Number(from))
+            .limit(Number(limit))
+    ])
     res.json({
+        totalRecords,
         users
     })
 }
